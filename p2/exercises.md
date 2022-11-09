@@ -4,12 +4,13 @@
 1. Print First 10 natural numbers using while loop
 
 
-2. Write a program that count the total number of digits in a number received from a user using a while loop.
+2. Write a program that counts the total number of digits in a number received from a user using a while loop.
 
 
 3. Reverse a given integer numer
 
-4. Make a two-player Rock-Paper-Scissors game. Ask for player plays (using input), compare them, print out a message of congratulations to the winner, and ask if the players want to start a new game). In addition, keep track on amount of wins / draw for each round, and when the user chooses to exit your program, print all the statistics of the game - total rounds played, total wins for each player, total draws.
+
+5. Make a two-player Rock-Paper-Scissors game. Ask for player plays (using input), compare them, print out a message of congratulations to the winner, and ask if the players want to start a new game). In addition, keep track on amount of wins / draw for each round, and when the user chooses to exit your program, print all the statistics of the game - total rounds played, total wins for each player, total draws.
 
    ```
    Remember the rules:
@@ -18,7 +19,7 @@
    Paper beats rock
    ```
 
-5. Write a program that receives student names and their grades one by one. The program should continue running until user inserts "$$$" to indicate end of input. After receiving "$$$", the program should print all the received data in pairs <Student name, Grade>. In addition the program should print an average grade.
+6. Write a program that receives student names and their grades one by one. The program should continue running until user inserts "$$$" to indicate end of input. After receiving "$$$", the program should print all the received data in pairs <Student name, Grade>. In addition the program should print an average grade.
 
 
 5. Generate a random number between 1 and 100 (including 1 and 100). Ask the user to guess the number, then tell them whether they guessed too low, too high, or exactly right. (Hint: the following two lines will return you a random number between 1 and 10):
