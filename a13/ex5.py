@@ -13,3 +13,11 @@
 # 05.07.1999
 #
 #     ...
+
+# dates_num = 5
+#
+# for i in range(dates_num):
+#     date = input("Insert date: ")
+#     date_split = date.split(".")
+#     month = date_split[1]
+#     if month in [12, 1, 2]:
