@@ -12,25 +12,20 @@ def check_hour(u_time: str) -> str:
         if u_time.count(":") != 1:
             u_time = input("Please add ':' between the hours and minuets: ")
         else:
-            if u_time.split(":")[0].isdigit() == False:
+            hours, minutes = u_time.split(":")
+            if not hours.isdigit() or not minutes.isdigit():
                 u_time = input("Please insert only numbers: ")
                 continue
             else:
-                if u_time.split(":")[-1].isdigit() == False:
-                    u_time = input("Please insert only numbers: ")
+                if int(hours) > 24:
+                    u_time = input("please insert hours in 24 hours format: ")
                     continue
                 else:
-                    u_time = u_time.split(":")
-                    print(u_time)
-                    if int(u_time[0]) > 24:
-                        u_time = input("please insert hours in 24 hours format: ")
+                    if int(minutes) > 59:
+                        u_time = input("please insert minuets in 60 minuets format: ")
                         continue
                     else:
-                        if int(u_time[-1]) > 59:
-                            u_time = input("please insert minuets in 60 minuets format: ")
-                            continue
-                        else:
-                            return u_time
+                        return u_time
 #------------------CHECK HOUR FUNCTION------------------------
 
 
