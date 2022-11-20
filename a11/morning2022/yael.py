@@ -147,7 +147,7 @@ def milk_pik(milks_options, friend_num) -> list:
 #  -------------  function  --------------------------------------------------------------------------------------------
 
 
-# os.system("cls")  # = clear
+os.system("cls")  # = clear
 
 coffee_l = ["ESPRESSO", "DOPPIO", "LUNGO", "RISTRETTO", "MACCHIATO", "CORRETTO", "CON PANNA", "ROMANO", "CAPPUCCINO",
             "AMERICANO", "CAFELATTE", "FLAT WHITE", "MAROCCHINO", "MOCHA", "BICERIN", "BREVE", "RAF COFFEE",
