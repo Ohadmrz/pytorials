@@ -1,6 +1,13 @@
-# Write a program that receives a number from a user and prints a multiplication table of a given number.
-n = int(input("Insert a number: "))
-for i in range(1, 11):
-    product = n * i
-    # print(f"{i}*{n} = {product}")
-    print(f"{i:5d}*{n} = {product}")
+#Write a program that receives rows number  and prints the following number pattern:
+# 1
+# 1 2
+# 1 2 3
+# 1 2 3 4
+# 1 2 3 4 5
+
+
+rows = int(input("Insert num: "))
+for i in range(1, rows+1):
+    for j in range(1, i + 1):
+        print(j, end=" ")
+    print("")
