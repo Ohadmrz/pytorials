@@ -1,6 +1,6 @@
-def sqrt_num(num: int) -> int:
-    for i in range(1, num):
-        if i * i == num:
+def mySqrt(x: int) -> int:
+    for i in range(0, x+1):
+        if i * i == x:
             return i
-        elif i * i > num:
-            return i - 1
+        elif i * i > x:
+            return i-1
