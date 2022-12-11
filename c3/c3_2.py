@@ -179,3 +179,4 @@ if __name__ == '__main__':
     print(f"Transactions: {account1.get_transactions_per_date(datetime.date.today())}")
 
 
+
