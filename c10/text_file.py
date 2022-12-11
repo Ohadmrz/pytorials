@@ -21,7 +21,7 @@ class TextFile(ABC):
 
     def get_content(self):
         with open(self._file_path, 'r') as fd:
-            content = self.get_specific_content(fd)
+            content = self._get_specific_content(fd)
         return content
         # open a file (fd / fh) - common for all
         # get content - specific
