@@ -88,6 +88,7 @@ class BankAccount:
             else:
                 self._add_transaction('deposit', amount=amount, currency=currency)
                 self.usd_balance += amount
+                return True
 
     def convert_to_usd(self, nis_amnt, nis2usd_exchange_rate):
         if nis_amnt < 0:
