@@ -6,6 +6,7 @@ from c3_2 import BankAccount
 
 class DepositTests(TestCase):
 
+
     def setUp(self) -> None:
         self.account = BankAccount('discount', 'rrr', 123, set(),
                               usd_allowed=True, credit_limit=0)
