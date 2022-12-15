@@ -23,7 +23,7 @@ min_num, middle_num, max_num = None, None, None
 #         middle_num, max_num = num1, num2
 #     else:
 #         middle_num, max_num = num2, num1
-#
+
 # print(min_num, middle_num, max_num)
 
 # Syntactic sugar:
