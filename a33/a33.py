@@ -8,8 +8,8 @@ if from_unit == to_unit:
     steps = 0
 if from_unit == 'bytes' and to_unit == 'kb' or \
         from_unit == 'kb' and to_unit == 'mb' or \
-            from_unit == 'mb' and to_unit == 'gb' or \
-                from_unit == 'gb' and to_unit == 'tb':
+        from_unit == 'mb' and to_unit == 'gb' or \
+        from_unit == 'gb' and to_unit == 'tb':
     steps = -1
 if from_unit == 'bytes' and to_unit == 'mb' or \
         from_unit == 'kb' and to_unit == 'gb' or \
