@@ -1,5 +1,10 @@
 UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+#C:\Users\Documents\my files\doc1.docx
+#C:\sdfsdf.txt
+
+#/Users/valeria/src/qgis_technion/qgis_test_proj.qgz
+
 path = input("Insert path: ")
 
 # /a.t
@@ -24,7 +29,7 @@ if path[0] in UPPERCASE:
         else:
             # valid filename - get extension
             filename_parts = filename.split(".")
-            filename = ".".join(filename_parts[:-1])
+            # filename = ".".join(filename_parts[:-1])
             extension = filename_parts[-1]
             depth = path.count("\\") - 1
             print(f"The provided path is valid!\nDepth: {depth}\nFilename: {filename}\nExtension: {extension}")

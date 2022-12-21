@@ -21,6 +21,9 @@ print(f"Row: {row} | Seat char: {seat_char}")
 # get the index of the char in the structure
 seat_char_idx = structure.index(seat_char)
 
+#5B
+#ABC DEF (1)
+
 # the leftmost and the rightmost are windows
 if seat_char_idx == 0 or seat_char_idx == len(structure)-1:
     print("window")
