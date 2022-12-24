@@ -1,6 +1,3 @@
-# Write a program that receives 10 strings from a user,
-# and prints the amount of strings with even length.
-
 count = 0
 even_cnt = 0
 while count < 10:

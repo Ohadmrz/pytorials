@@ -1,6 +1,3 @@
-# Get numbers from the user until you get a special char
-# indicating the end of input, and print the sum and the average of the numbers.
-
 nums_sum = 0
 nums_count = 0
 num = ''

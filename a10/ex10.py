@@ -1,16 +1,3 @@
-# Make a continuous two-player Rock-Paper-Scissors game.
-# Ask for player plays (using input), compare them,
-# print out a message of congratulations to the winner,
-# and ask if the players want to start a new game).
-# In addition, keep track of the amount of wins / draws for each round,
-# and when the user chooses to exit your program,
-# print all the statistics of the game - total rounds played, total wins for each player, total draws.
-# The rules are:
-# Rock beats scissors
-# Scissors beat paper
-# Paper beats rock
-
-
 wins1 = 0
 wins2 = 0
 draws = 0

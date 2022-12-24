@@ -1,7 +1,3 @@
-# Reverse a given integer number. Solve the exercise in two ways:
-# By converting received number to string and operating on string
-# Do not convert the number to string, and use modulus operator
-
 # option 1
 num = input('Insert a num: ')
 print(num[::-1])
