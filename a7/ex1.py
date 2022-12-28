@@ -35,7 +35,7 @@ print(longest_indexes)
 #
 # # pretty print
 # total_longest = len(longest_items)
-# print(f"The length of the longest fruit name is: {longest_len}, "
+# print(f"The length of the longest fruit1 name is: {longest_len}, "
 #       f"and there are {total_longest} words with this length:")
 # for i in range(total_longest):
 #     # now each time we get to one of lists with index i, we
