@@ -25,3 +25,12 @@ if salary > 663240:
     total_tax += (salary - 663240) * 0.5
 
 print(f"Your annual tax is: {total_tax}")
+
+
+steps = (77400, 110880, 178080, 247440, 514920, 663240)
+percents = (0.1, 0.14, 0.2, 0.31, 0.35, 0.47, 0.5)
+
+def calc_salary_step(salary, ):
+    salary_for_stage = min(salary, 663240)
+    step_tax = (salary_for_stage - 514920) * 0.47
+    return step_tax
