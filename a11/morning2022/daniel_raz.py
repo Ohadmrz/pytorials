@@ -289,14 +289,14 @@ def print_order(_filtered_coffee_types: list, _hours: int, _minutes: int,
     # calculate the coffee number for customer presentation
     coffee_number = (_hours + _offset - items_removed) % len_filter
     # zero-index handling
-    coffee_type = _filtered_coffee_types[coffee_number]
+    coffee_type = _filtered_coffee_types[coffee_number-1]
 
     print()
     print(f"******************************\n",
           f'{"ORDER": ^30}')
     print(f"******************************\n"
           f"User #1\n"
-          f"Coffee #{COFFEE_TYPES.index(coffee_type) + 1}: {coffee_type}")
+          f"Coffee #{COFFEE_TYPES.index(coffee_type)}: {coffee_type}")
 
     # store the previous users coffee number to calculate other friends coffee number
     previous_user_coffee = coffee_number
@@ -307,10 +307,10 @@ def print_order(_filtered_coffee_types: list, _hours: int, _minutes: int,
         # calculate the coffee number for customer presentation
         coffee_number = (previous_user_coffee + _minutes) % len_filter
         # zero-index handling
-        coffee_type = _filtered_coffee_types[coffee_number]
+        coffee_type = _filtered_coffee_types[coffee_number-1]
         print(f"******************************\n"
               f"User #{user}\n"
-              f"Coffee #{COFFEE_TYPES.index(coffee_type) + 1}: {coffee_type}"
+              f"Coffee #{COFFEE_TYPES.index(coffee_type)}: {coffee_type}"
               )
         user += 1
         # update the previous coffee number
