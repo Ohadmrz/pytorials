@@ -1,8 +1,15 @@
 def drop_empty(orig_dict: dict, inplace: bool = False):
     keys_to_remove = []
     for k, v in orig_dict.items():
-        if not v:
+        if type(v) != int and not v: #None [] "" 0
             keys_to_remove.append(k)
+
+    #sorted
+    # for i in orig_dict:
+    # for i in sorted(orig_dict):
+    #     val = orig_dict[i]
+    #     if type(val) != int and not val:
+    #         orig_dict.pop(i)
 
     if inplace:
         # alter original dictionary
@@ -29,4 +36,5 @@ orig_dict = {
 }
 
 print(drop_empty(orig_dict, inplace=False))
+
 

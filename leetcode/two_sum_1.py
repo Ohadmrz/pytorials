@@ -12,9 +12,9 @@ import random
 
 def two_sum_inefficient(nums: list[int], target: int) -> list[int]:
     start = time.time()
-    for i in nums:
-        for j in nums:
-            if i + j == target:
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            if nums[i] + nums[j] == target:
                 print(f"Total seconds: {time.time() - start}")
                 return [i, j]
 
@@ -22,8 +22,13 @@ def two_sum_inefficient(nums: list[int], target: int) -> list[int]:
 def two_sum(nums: list[int], target: int) -> list[int]:
 
     start = time.time()
-    num2idx = {n: i for i, n in enumerate(nums)}
+    num2idx = {}
+    # O(n)
+    for i, n in enumerate(nums):
+        num2idx[n] = i
+    # num2idx = {n: i for i, n in enumerate(nums)}
 
+    # O(n)
     for i in range(len(nums)-1):
         diff = target - nums[i]
         if diff in num2idx and num2idx[diff] != i:
@@ -32,7 +37,8 @@ def two_sum(nums: list[int], target: int) -> list[int]:
 
 
 rand_ints = []
-for i in range(10000):
+# 10 -> 1000 -> 10000
+for i in range(100000):
     rand_ints.append(random.randint(100, 200))
 
 print(two_sum_inefficient(rand_ints + [10,20,11,15,2,7], 9))
