@@ -1,3 +1,5 @@
+
+
 def initialize_board(board_size: int):
     """
     Initialize the game board according to the board size
@@ -5,7 +7,7 @@ def initialize_board(board_size: int):
     """
     pass
 
-def update_board_with_turn(board):
+def update_board_with_turn(board, turn: tuple):
     """
     Update game board with new user turn
     """
@@ -19,33 +21,34 @@ def no_moves_left(board):
     pass
 
 
-def has_winner(board):
+def get_winner(board) -> str | None:
     """
     Check whether there is a winner.
+    The function returns the winning char if exists, otherwise 0.
     This function should use the following functions to detect
     whether there is a winner:
     row_wins()
     column_wins()
     diagonal_wins()
     """
-    pass
+    return get_row_winner(board) or get_column_winner(board) or get_diagonal_winner(board)
 
 
-def row_wins(board):
+def get_row_winner(board):
     """
     Check whether there is a winner in a row
     """
     pass
 
 
-def column_wins(board):
+def get_column_winner(board):
     """
     Check whether there is a winner in a column
     """
     pass
 
 
-def diagonal_wins(board):
+def get_diagonal_winner(board):
     """
     Check whether there is a winner in one of the diagonals
     :return:

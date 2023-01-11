@@ -7,7 +7,7 @@ def print_greeting():
     pass
 
 
-def get_players() -> tuple[str]:
+def get_player_names() -> tuple:
     """
     The functions recieves the names of the players
     """
@@ -21,7 +21,7 @@ def get_board_size() -> int:
     pass
 
 
-def display_turn_prompt():
+def display_turn_prompt(game_state: dict):
     """
     Ask relevant player to insert his move.
     Consider the best way to display the board to the user
@@ -30,9 +30,29 @@ def display_turn_prompt():
     pass
 
 
-def get_user_turn():
+def get_user_turn(game_state: dict):
     """
-    Receive user's move including validations
+    Receive user's move including validations.
+    Note, you should validate that the input is correct, and
+    the cell in the board is available (empty)
+    """
+    pass
+
+
+def print_win_msg(player_name):
+    """
+    Print a beautiful win message to the winner
+    :param player_name:
+    :return:
+    """
+    pass
+
+
+def print_draw_msg():
+    """
+    Print a beautiful draw message
+    :param player_name:
+    :return:
     """
     pass
 
