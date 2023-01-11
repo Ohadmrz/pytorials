@@ -26,6 +26,8 @@ if __name__ == '__main__':
         winner_char = get_winner(game_state['board'])
         if winner_char:
             print_win_msg(game_state['char2player'][winner_char])
+            break
         elif no_moves_left(game_state['board']):
             print_draw_msg()
+            break
 

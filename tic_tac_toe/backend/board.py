@@ -1,13 +1,12 @@
-
-
-def initialize_board(board_size: int):
+def initialize_board(board_size: int) -> list[list[int]]:
     """
     Initialize the game board according to the board size
     received from the user
     """
     pass
 
-def update_board_with_turn(board, turn: tuple):
+
+def update_board_with_turn(board: list[list[int]], turn: tuple, char:str):
     """
     Update game board with new user turn
     """
