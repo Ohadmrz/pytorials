@@ -23,21 +23,6 @@ def get_config(filename='config.ini', section='postgresql'):
 
     return db_config
 
-# def perform_query(movie_name):
-#     # read connection parameters
-#     params = get_config("top250_movies_db.ini")
-#
-#     with psycopg2.connect(**params) as conn:
-#
-#         cur: psycopg2._psycopg.cursor = conn.cursor()
-#
-#         query = f"select * from imdb_top where movie_name ilike '{movie_name}';"
-#         print(f"going to execute: {query}")
-#         cur.execute(query)
-#         results = cur.fetchall()
-#         return results
-
-
 def perform_query(movie_name):
     # read connection parameters
     params = get_config("top250_movies_db.ini")
@@ -46,11 +31,26 @@ def perform_query(movie_name):
 
         cur: psycopg2._psycopg.cursor = conn.cursor()
 
-        query = "select * from imdb_top where movie_name ilike %s;"
+        query = f"select * from imdb_top where movie_name ilike '{movie_name}'"
         print(f"going to execute: {query}")
-        cur.execute(query, (f"%{movie_name}", ))
+        cur.execute(query)
         results = cur.fetchall()
         return results
+
+
+# def perform_query(movie_name):
+#     # read connection parameters
+#     params = get_config("top250_movies_db.ini")
+#
+#     with psycopg2.connect(**params) as conn:
+#
+#         cur: psycopg2._psycopg.cursor = conn.cursor()
+#
+#         query = "select * from imdb_top where movie_name ilike %s;"
+#         print(f"going to execute: {query}")
+#         cur.execute(query, (f"%{movie_name}", ))
+#         results = cur.fetchall()
+#         return results
 
 
 if __name__ == '__main__':
