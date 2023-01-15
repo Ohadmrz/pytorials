@@ -23,19 +23,19 @@ def get_config(filename='config.ini', section='postgresql'):
 
     return db_config
 
-def perform_query(movie_name):
-    # read connection parameters
-    params = get_config("top250_movies_db.ini")
-
-    with psycopg2.connect(**params) as conn:
-
-        cur: psycopg2._psycopg.cursor = conn.cursor()
-
-        query = f"select * from imdb_top where movie_name ilike '{movie_name}';"
-        print(f"going to execute: {query}")
-        cur.execute(query)
-        results = cur.fetchall()
-        return results
+# def perform_query(movie_name):
+#     # read connection parameters
+#     params = get_config("top250_movies_db.ini")
+#
+#     with psycopg2.connect(**params) as conn:
+#
+#         cur: psycopg2._psycopg.cursor = conn.cursor()
+#
+#         query = f"select * from imdb_top where movie_name ilike '{movie_name}';"
+#         print(f"going to execute: {query}")
+#         cur.execute(query)
+#         results = cur.fetchall()
+#         return results
 
 
 def perform_query(movie_name):
@@ -48,7 +48,7 @@ def perform_query(movie_name):
 
         query = "select * from imdb_top where movie_name ilike %s;"
         print(f"going to execute: {query}")
-        cur.execute(query, (movie_name, ))
+        cur.execute(query, (f"%{movie_name}", ))
         results = cur.fetchall()
         return results
 
@@ -56,11 +56,10 @@ def perform_query(movie_name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('movie_name')
+    parser.add_argument('-t', '--temp')
 
     args = parser.parse_args()
     results = perform_query(args.movie_name)
     print(results)
 
 
-#./top250.py "avatar;drop table temp;"
-# ./top250.py "pulp fiction'; drop table newtable; select * from version() where version ilike 'r"
