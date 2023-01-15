@@ -1,6 +1,11 @@
 from tic_tac_toe.backend.board import *
 from tic_tac_toe.frontend.menu_utils import *
 
+
+def switch_player(game_state):
+    game_state['curr_player'] = player1 if \
+        game_state['curr_player'] == player2 else player1
+
 if __name__ == '__main__':
 
     print_greeting()
@@ -30,4 +35,5 @@ if __name__ == '__main__':
         elif no_moves_left(game_state['board']):
             print_draw_msg()
             break
+        switch_player(game_state)
 
