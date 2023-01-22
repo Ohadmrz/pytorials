@@ -1,4 +1,4 @@
-from d10.ex1 import get_date_in_3_days
+from d10.ex2 import get_date_in_3_days
 
 
 def test_same_week():
