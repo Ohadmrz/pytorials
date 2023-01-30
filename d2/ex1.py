@@ -1,5 +1,6 @@
 import datetime
 
+
 class DateIterator:
     def __init__(self, init_date=datetime.datetime.now()):
         self.init_date = init_date
@@ -10,8 +11,8 @@ class DateIterator:
 
     def __next__(self):
         next_day = self.curr + datetime.timedelta(days=1)
-        if (next_day).month != self.curr.month:
-            raise StopIteration
+        if next_day.month != self.curr.month:
+            raise StopIteration()
 
         self.curr = next_day
         return next_day
