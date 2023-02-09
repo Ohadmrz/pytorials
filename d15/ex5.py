@@ -16,6 +16,10 @@ def validate_file_exists(file_path: str) -> callable:
 def connect_to_db():
     pass
 
+# connect_to_db = validate_file_exists('config.ini')(connect_to_db)
+# connect_to_db = wrapper(connect_to_db)
+
+
 
 @validate_file_exists('config_test.ini')
 def connect_to_block_storage():
