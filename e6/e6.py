@@ -9,6 +9,7 @@ def send_req():
     response = requests.get("https://api.kanye.rest")
     print(response.text)
 
+
 with ThreadPoolExecutor(max_workers=10) as executor:
     while seconds > 0:
         print(f"{round(seconds, 1)} seconds left")
