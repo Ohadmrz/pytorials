@@ -48,6 +48,6 @@ if __name__ == '__main__':
         print(f"The country with the highest probability for the name {my_name.title()}: \n"
               f"Country Code: {country_code.upper()}\nCountry Name: {country_name['official']}\nContinent: "
               f"{country_data[0]['continents'][0]}")
-        get_and_save_flag_image(country_data[0]["flags"]["png"])
+        # get_and_save_flag_image(country_data[0]["flags"]["png"])
     except Exception as e:
         print(e)
