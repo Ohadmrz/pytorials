@@ -1,4 +1,5 @@
 # add locking mechanism and make thread-safe
+from concurrent.futures import ThreadPoolExecutor
 from threading import Lock, Thread
 
 
@@ -11,9 +12,8 @@ class BankAccount:
         self._balance = 0
         self._lock: Lock = Lock()
 
-    @staticmethod
     def safe(f):
-        def wrapper(self: "BankAccount", *args, **kwargs):
+        def wrapper(self, *args, **kwargs):
             with self._lock:
                 return f(self, *args, **kwargs)
 
@@ -32,7 +32,7 @@ class BankAccount:
 
 # this code should run without problems
 if __name__ == '__main__':
-    my_account = BankAccount(123456, "Israel Israeli")
+    account = BankAccount(123456, "Israel Israeli")
 
     def multiple_transactions_deposit(account):
         for i in range(100, 2000000, 10):
@@ -42,14 +42,11 @@ if __name__ == '__main__':
         for i in range(100, 2000000, 10):
             account.withdraw(i)
 
-    threads = [Thread(target=multiple_transactions_deposit, args=(my_account,)) for _ in range(4)]
-    for t in threads:
-        t.start()
+    with ThreadPoolExecutor(4) as executor:
+        executor.submit(multiple_transactions_deposit, account)
+        executor.submit(multiple_transactions_withdraw, account)
 
-    for t in threads:
-        t.join()
-
-    assert my_account._balance == 0, \
-        f"Expected balance: 0, received: {my_account._balance}"
-    assert len(my_account._transactions_list) == 799960, \
-        f"Expected transactions: 799960, received: {len(my_account._transactions_list)}"
+    assert account._balance == 0, \
+        f"Expected balance: 0, received: {account._balance}"
+    assert len(account._transactions_list) == 399980, \
+        f"Expected transactions: 399980, received: {len(account._transactions_list)}"
