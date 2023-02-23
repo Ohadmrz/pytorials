@@ -61,22 +61,15 @@ order by
 	min_age;
 --Get average amount of purchases for each product type (fish, meat, sweets, wine, gold) for groups of customers with the same amounts of children at home (kids and teens)
 select
-	distinct on
-	(kidhome + teenhome) kidhome + teenhome as total_kids_home,
-	round(avg(mntfishproducts)) as avg_meat,
-	round(avg(mntmeatproducts)) as avg_meat,
-	round(avg(mntsweetproducts)) as avg_sweets,
-	round(avg(mntwines)) as avg_wines,
-	round(avg(mntgoldprods)) as avg_gold
-from
-	superstore_data
+	teenhome + kidhome as total_children,
+	avg(mntwines) as avg_wines,
+	avg(mntsweetproducts) as avg_sweets,
+	avg(mntmeatproducts) as avg_meat,
+	avg(mntfishproducts) as avg_fish
+from superstore_data
 group by
-	total_kids_home,
-	mntfishproducts,
-	mntmeatproducts,
-	mntsweetproducts,
-	mntwines,
-	mntgoldprods;
+	teenhome + kidhome
+
 --Get the youngest customer id and birth year, for every possible number of teens at home that exist in the table
 select
 	distinct on
@@ -88,6 +81,7 @@ from
 group by
 	id,
 	teenhome;
+
 --Get total number of customers who accepted and did not accept the offer
 select
 	count(*)
@@ -97,10 +91,10 @@ group by
 	response
 order by
 	response = 1;
+
 --Get average number of kids and average number of teens for customers with the same marital status (per status)
 select
-	distinct on
-	(marital_status) marital_status,
+    marital_status,
 	round(avg(kidhome)) as avg_k,
 	round(avg(teenhome)) as avg_t
 from
@@ -109,15 +103,30 @@ group by
 	marital_status,
 	kidhome,
 	teenhome;
---Get the minimum, maximum, and average income for every education level of customers
+
+
+-- Get the minimum, maximum, and average income for every education level of customers
 select
-	education,
-	min(income) as min_income,
-	max(income) as max_income,
-	round(avg(income)) as avg_income
+    distinct on (education)
+    education,
+    date_part('year', now()) - year_birth as customer_age,
+    id
 from
-	superstore_data
-group by
-	education
+    superstore_data
 order by
-	education;
+    education, customer_age;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
