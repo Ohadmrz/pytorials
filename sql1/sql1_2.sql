@@ -9,16 +9,19 @@ group by
 	marital_status
 order by
 	count;
+
 --Get total purchases of sweets and wine per each education status
 select
-	sum(mntsweetproducts) as total_sweets,
-	sum(mntwines) as total_wine,
+	sum(mntsweetproducts) + sum(mntwines) as total_sweets_and_wines,
 	education
 from
 	superstore_data
 group by
 	education;
---Get the maximum and the minimum age of customers with the same marital status and education ordered by education, and then minimum age
+
+--Get the maximum and the minimum age of
+--customers with the same marital status and education
+--ordered by education, and then minimum age
 select
 	education,
 	marital_status,
@@ -32,34 +35,42 @@ group by
 order by
 	education,
 	min(date_part('year', now()) - year_birth);
---Get amount of customers of each age that have accepted the offer and have not complained in the past 2 years
+
+
+--Get amount of customers of each age
+-- that have accepted the offer and
+--have not complained in the past 2 years
 select
 	count(*),
 	date_part('year', now()) - year_birth as _age
 from
 	superstore_data
+where
+	response = 1 and complain = 0
 group by
-	distinct(date_part('year', now()) - year_birth),
-	response = 1,
-	complain = 0
+	date_part('year', now()) - year_birth
 order by
-	date_part('year', now()) - year_birth;
---Get the youngest customer for each education level (id,  education, age)
+	_age;
+
+
+--Get the youngest customer for each
+--education level (id,  education, age)
 select
-	distinct on
-	(education)
-	education,
+	distinct on (education)
 	id,
-	min(date_part('year', now()) - year_birth) as min_age
+	education,
+	date_part('year', now()) - year_birth as min_age
 from
 	superstore_data
-group by
-	education,
-	id
 order by
 	education,
 	min_age;
---Get average amount of purchases for each product type (fish, meat, sweets, wine, gold) for groups of customers with the same amounts of children at home (kids and teens)
+
+
+--Get average amount of purchases
+--for each product type (fish, meat, sweets, wine, gold)
+--for groups of customers
+--with the same amounts of children at home (kids and teens)
 select
 	teenhome + kidhome as total_children,
 	avg(mntwines) as avg_wines,
@@ -70,63 +81,50 @@ from superstore_data
 group by
 	teenhome + kidhome
 
---Get the youngest customer id and birth year, for every possible number of teens at home that exist in the table
+--Get the youngest customer id and birth year,
+--for every possible number of teens at home
+--that exist in the table
 select
 	distinct on
 	(teenhome) teenhome,
 	id,
-	min(date_part('year', now()) - year_birth) as min_age
+	date_part('year', now()) - year_birth as min_age
 from
 	superstore_data
-group by
-	id,
-	teenhome;
-
---Get total number of customers who accepted and did not accept the offer
-select
-	count(*)
-from
-	superstore_data
-group by
-	response
 order by
-	response = 1;
+	teenhome, min_age
 
---Get average number of kids and average number of teens for customers with the same marital status (per status)
+
+--Get total number of customers
+--who accepted and did not accept the offer
+select
+	count(*), response
+from
+	superstore_data
+group by
+	response;
+
+--Get average number of kids and
+-- average number of teens for customers
+-- with the same marital status (per status)
 select
     marital_status,
-	round(avg(kidhome)) as avg_k,
-	round(avg(teenhome)) as avg_t
+	round(avg(kidhome), 1) as avg_k,
+	round(avg(teenhome), 1) as avg_t
 from
 	superstore_data
 group by
-	marital_status,
-	kidhome,
-	teenhome;
+	marital_status;
 
 
--- Get the minimum, maximum, and average income for every education level of customers
+-- Get the minimum, maximum,
+-- and average income for every education level of customers
 select
-    distinct on (education)
     education,
-    date_part('year', now()) - year_birth as customer_age,
-    id
+    min(income),
+    round(avg(income)),
+    max(income)
 from
     superstore_data
-order by
-    education, customer_age;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+group by
+    education;
