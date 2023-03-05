@@ -6,60 +6,52 @@ from configparser import ConfigParser
 import psycopg2
 
 
-def get_config(filename='config.ini', section='postgresql'):
-    # create a parser
-    parser = ConfigParser()
-    # read config file
-    parser.read(filename)
+class MoviesModel:
 
-    # get section, default to postgresql
-    db_config = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db_config[param[0]] = param[1]
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+    def __init__(self):
+        self._conn = psycopg2.connect(
+        host='localhost',
+        port=5432,
+        database='top250movies',
+        user='postgres',
+        password='postgres')
 
-    return db_config
+
+
 
 def perform_query(movie_name):
     # read connection parameters
-    params = get_config("top250_movies_db.ini")
 
-    with psycopg2.connect(**params) as conn:
-
-        cur: psycopg2._psycopg.cursor = conn.cursor()
-
-        query = f"select * from imdb_top where movie_name ilike '{movie_name}'"
-        print(f"going to execute: {query}")
-        cur.execute(query)
-        results = cur.fetchall()
-        return results
+    with psycopg2.connect(
+        host='localhost',
+        port=5432,
+        database='top250movies',
+        user='postgres',
+        password='postgres') as conn:
 
 
-# def perform_query(movie_name):
-#     # read connection parameters
-#     params = get_config("top250_movies_db.ini")
-#
-#     with psycopg2.connect(**params) as conn:
-#
-#         cur: psycopg2._psycopg.cursor = conn.cursor()
-#
-#         query = "select * from imdb_top where movie_name ilike %s;"
-#         print(f"going to execute: {query}")
-#         cur.execute(query, (f"%{movie_name}", ))
-#         results = cur.fetchall()
-#         return results
+        with conn.cursor() as cur:
+
+            query = f"select * from imdb_top where movie_name ilike '{movie_name}'"
+            print(f"going to execute: {query}")
+
+            cur.execute(query)
+            results = cur.fetchall()
+            return results
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('movie_name')
-    parser.add_argument('-t', '--temp')
+    parser.add_argument('--name', '-n')
+    parser.add_argument('--rating', '-r', type=float)
 
     args = parser.parse_args()
-    results = perform_query(args.movie_name)
-    print(results)
+    if not args.__getattr__('name') and not args.__getattr__('rating'):
+        print('Error: You have to provide one of --name of --rating')
+    elif args.__getattr__('name') and args.__getattr__('rating'):
+        print('Error: You have to provide only one of --name or --rating')
+    else:
+        results = perform_query(args.movie_name)
+        print(results)
 
 
