@@ -1,8 +1,6 @@
 #!/Users/valeria/src/morning-ninjas/venv/bin/python3
 
 import argparse
-from configparser import ConfigParser
-
 import psycopg2
 
 
@@ -16,28 +14,39 @@ class MoviesModel:
         user='postgres',
         password='postgres')
 
+    # def check_movie_exists(self, movie_name: str) -> bool:
+    #     query = f"""
+    #     SELECT * FROM imdb_top
+    #     WHERE movie_name ilike '{movie_name}'
+    #     """
+    #     with self._conn:
+    #         with self._conn.cursor() as cur:
+    #             cur.execute(query)
+    #             result = cur.fetchone()
+    #     return result is not None
 
 
+    def check_movie_exists(self, movie_name: str) -> bool:
+        query = f"""
+        SELECT * FROM imdb_top
+        WHERE movie_name ilike %s or rating = %s
+        """
+        with self._conn:
+            with self._conn.cursor() as cur:
+                cur.execute(query, (movie_name, 9.0))
+                result = cur.fetchone()
+        return result is not None
 
-def perform_query(movie_name):
-    # read connection parameters
-
-    with psycopg2.connect(
-        host='localhost',
-        port=5432,
-        database='top250movies',
-        user='postgres',
-        password='postgres') as conn:
-
-
-        with conn.cursor() as cur:
-
-            query = f"select * from imdb_top where movie_name ilike '{movie_name}'"
-            print(f"going to execute: {query}")
-
-            cur.execute(query)
-            results = cur.fetchall()
-            return results
+    def get_movies_by_rating(self, rating: float) -> list:
+        query = f"""
+        SELECT * FROM imdb_top
+        WHERE rating > {rating}
+        """
+        with self._conn:
+            with self._conn.cursor() as cur:
+                cur.execute(query)
+                result = cur.fetchall()
+        return result
 
 
 if __name__ == '__main__':
@@ -46,12 +55,20 @@ if __name__ == '__main__':
     parser.add_argument('--rating', '-r', type=float)
 
     args = parser.parse_args()
-    if not args.__getattr__('name') and not args.__getattr__('rating'):
+    print(args)
+    if not args.name and not args.rating:
         print('Error: You have to provide one of --name of --rating')
-    elif args.__getattr__('name') and args.__getattr__('rating'):
+    elif args.name and args.rating:
         print('Error: You have to provide only one of --name or --rating')
     else:
-        results = perform_query(args.movie_name)
-        print(results)
+        model = MoviesModel()
+        if args.name:
+            result = model.check_movie_exists(args.name)
+            if result:
+                print(f"The movie {args.name} is among top 250 IMDB movies")
+            else:
+                print(f"The movie {args.name} is not among top 250 IMDB movies")
+        else:
+            print(model.get_movies_by_rating(args.rating))
 
 
