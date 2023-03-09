@@ -5,22 +5,22 @@ import psycopg2
 
 def transfer(from_account, to_account, amount, initiated_by):
     insert_trans_query = f"""
-             INSERT INTO public.transactions
+             INSERT INTO transactions
              (transaction_type, ts, initiated_by)
              VALUES(%s, %s, %s) returning id;
              """
     insert_trans_account_query = f"""
-                             INSERT INTO public.transaction_accounts
+                             INSERT INTO transaction_accounts
                              (account_role, transaction_id, account_id)
                              VALUES( %s, %s, %s );
                              """
     reduce_balance_query = f"""
-                             UPDATE public.accounts
+                             UPDATE accounts
                              SET balance= balance - %s
                              WHERE id=%s
                              """
     increase_balance_query = f"""
-                             UPDATE public.accounts
+                             UPDATE accounts
                              SET balance= balance + %s
                              WHERE id=%s
                              """
