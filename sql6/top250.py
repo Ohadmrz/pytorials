@@ -26,14 +26,14 @@ class MoviesModel:
     #     return result is not None
 
 
-    def check_movie_exists(self, movie_name: str) -> bool:
+    def check_movie_exists(self, movie_name: str, rating: float) -> bool:
         query = f"""
         SELECT * FROM imdb_top
-        WHERE movie_name ilike %s or rating = %s
+        WHERE movie_name ilike %s OR rating >= %s
         """
         with self._conn:
             with self._conn.cursor() as cur:
-                cur.execute(query, (movie_name, 9.0))
+                cur.execute(query, (movie_name, rating))
                 result = cur.fetchone()
         return result is not None
 
