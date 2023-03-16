@@ -61,6 +61,37 @@ def customer_accounts(customer_id):
                 return {'error': f'customer with id {customer_id} does not exist'}, 404
 
 
+@app.route("/api/v1/customers", methods=['POST'])
+def create_customer():
+
+    # validate all the required fields are received
+    required_fields = {
+        'passport_num': int,
+        'name': str,
+        'address': str
+    }
+    if set(request.form.keys()) != set(required_fields.keys()):
+        return {'error': 'error in provided fields'}, 400
+
+    str_list = []
+    for field in request.form:
+        try:
+            val = required_fields[field](request.form[field])
+            str_list.append(field)
+        except:
+            return {'error': f'invalid type for {field}, '
+                             f'expected: {required_fields[field]}, got {type(field)}'}, 400
+
+    sql = f"INSERT INTO customers ({','.join(request.form.keys())}) VALUES ({','.join(['%s'] * 3)})"
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(sql, tuple(request.form.values()))
+            if cur.rowcount == 1:
+                # create succeeded
+                return {}, 201
+    return {}, 500
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
