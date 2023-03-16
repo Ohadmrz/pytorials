@@ -1,3 +1,10 @@
+DELETE FROM transaction_accounts;
+DELETE FROM account_owners;
+DELETE FROM transactions;
+DELETE FROM accounts;
+DELETE FROM customers;
+
+
 INSERT INTO public.customers (id, passport_num, name, address) VALUES (2, 101010101, 'Angelina Jolie', 'California');
 INSERT INTO public.customers (id, passport_num, name, address) VALUES (1, 123456789, 'Brad Pitt', 'USA, Los Angeles');
 INSERT INTO public.customers (id, passport_num, name, address) VALUES (5, 1111111, 'John Travolta', 'New York, USA');
