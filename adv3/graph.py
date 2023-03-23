@@ -1,24 +1,39 @@
+import pprint
 from typing import Any
 
 
 class Graph:
 
     def __init__(self):
-        self._nodes = []
         self._edges: dict[Any, list] = {}
 
+        # {'Brussels': ['Paris'],
+        #
+        # }
+
+    def _validate_nodes_exist(self, *args):
+        for node in args:
+            if node not in self._edges.keys():
+                raise Exception("Node does not exist in the graph")
+
     def add_node(self, node):
-        self._nodes.append(node)
         self._edges[node] = []
 
     def add_edge(self, from_node, to_node):
 
-        if from_node not in self._nodes or to_node not in self._nodes:
-            raise Exception("Node does not exist in the graph")
-
+        self._validate_nodes_exist(from_node, to_node)
         self._edges[from_node].append(to_node)
 
-    def is_reachable(self, from_node, to_node):
+    def is_adjacent(self, node1, node2):
+        self._validate_nodes_exist(node1, node2)
+        if node2 in self._edges[node1]:
+            return -1
+        elif node1 in self._edges[node2]:
+            return 1
+        else:
+            return 0
+
+    def bfs(self, from_node, to_node):
 
         # Create an empty set to store visited nodes
         visited = set()
@@ -63,6 +78,9 @@ class Graph:
                     return True
         return False
 
+    def __str__(self):
+        return self._edges
+
 
 if __name__ == '__main__':
 
@@ -84,8 +102,10 @@ if __name__ == '__main__':
     graph.add_edge('Paris', 'Amsterdam')
     graph.add_edge('Paris', 'London')
 
-    # print(f"Path from Brussels to Amsterdam: {graph.is_reachable('Brussels', 'Amsterdam')}")
-    # print(f"Path from Tokyo to Brussels: {graph.is_reachable('Tokyo', 'Brussels')}")
+    pprint.pprint(graph._edges)
+
+    # print(f"Path from Brussels to Amsterdam: {graph.bfs('Brussels', 'Amsterdam')}")
+    # print(f"Path from Tokyo to Brussels: {graph.bfs('Tokyo', 'Brussels')}")
 
     print(f"Path from Brussels to Amsterdam: {graph.dfs('Brussels', 'Amsterdam')}")
     print(f"Path from Tokyo to Brussels: {graph.dfs('Tokyo', 'Brussels')}")

@@ -11,15 +11,17 @@ def harmonic_sum(num):
     return 1/num + harmonic_sum(num-1)
 
 
-def chocolates(money, wraps, price, wraps_needed):
-    if money < price and wraps < wraps_needed:
-        return 0
+def print_triangles(n):
+    if n == 1:
+        print('*')
+        return
+    elif n == 0:
+        return
+    print(n * '*')
+    print_triangles(n - 2)
+    print(n * '*')
 
-    if wraps == wraps_needed:
-        return 1
-
-    return 1 + chocolates(money-price, wraps+1, price, wraps_needed)
 
 
 if __name__ == '__main__':
-    print(chocolates(16, 0, 2, 2))
+    print_triangles(5)
