@@ -78,6 +78,48 @@ class Graph:
                     return True
         return False
 
+    def dfs_with_depth(self, from_node, to_node) -> tuple[bool, int] | tuple[bool, None]:
+        return self._dfs_rec_with_depth(from_node, to_node, set(), 0)
+
+    def _dfs_rec_with_depth(self, from_node, to_node, visited, depth) -> tuple[bool, int] | tuple[bool, None]:
+
+        if from_node == to_node:
+            return True, depth
+
+        visited.add(from_node)
+        for node in self._edges[from_node]:
+            if node not in visited:
+                has_path, path_depth = self._dfs_rec_with_depth(node, to_node, visited, depth+1)
+                if has_path:
+                    return True, path_depth
+        return False, None
+
+    def dfs_with_paths(self, from_node, to_node):
+        path = [from_node]
+        all_paths = []
+        self._dfs_rec_with_paths(from_node, to_node, set(), path, all_paths)
+        print(f"All paths: {all_paths}")
+        return path
+
+    def _dfs_rec_with_paths(
+            self, from_node, to_node,
+            visited, path: list, all_paths: list) -> bool:
+
+        if from_node == to_node:
+            all_paths.append(path)
+            return True
+
+        visited.add(from_node)
+
+        for node in self._edges[from_node]:
+            if node not in visited:
+                path.append(node)
+                self._dfs_rec_with_paths(node, to_node, visited, path, all_paths)
+                    # return True
+        path.pop()
+        return False
+
+
     def __str__(self):
         return self._edges
 
@@ -107,6 +149,12 @@ if __name__ == '__main__':
     # print(f"Path from Brussels to Amsterdam: {graph.bfs('Brussels', 'Amsterdam')}")
     # print(f"Path from Tokyo to Brussels: {graph.bfs('Tokyo', 'Brussels')}")
 
-    print(f"Path from Brussels to Amsterdam: {graph.dfs('Brussels', 'Amsterdam')}")
-    print(f"Path from Tokyo to Brussels: {graph.dfs('Tokyo', 'Brussels')}")
+    # print(f"Path from Brussels to Amsterdam: {graph.dfs('Brussels', 'Amsterdam')}")
+    # print(f"Path from Tokyo to Brussels: {graph.dfs('Tokyo', 'Brussels')}")
+
+    # print(f"Path from Brussels to Amsterdam: {graph.dfs_with_depth('Brussels', 'Amsterdam')}")
+    # print(f"Path from Tokyo to Brussels: {graph.dfs_with_depth('Tokyo', 'Brussels')}")
+
+    print(f"Path from Brussels to Amsterdam: {graph.dfs_with_paths('Tokyo', 'London')}")
+    # print(f"Path from Tokyo to Brussels: {graph.dfs_with_depth('Tokyo', 'Brussels')}")
 
