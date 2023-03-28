@@ -106,7 +106,7 @@ class Graph:
             visited, path: list, all_paths: list) -> bool:
 
         if from_node == to_node:
-            all_paths.append(path)
+            all_paths.append(path.copy())
             return True
 
         visited.add(from_node)
@@ -115,9 +115,10 @@ class Graph:
             if node not in visited:
                 path.append(node)
                 self._dfs_rec_with_paths(node, to_node, visited, path, all_paths)
-                    # return True
-        path.pop()
+                path.pop()
+
         return False
+
 
 
     def __str__(self):
@@ -140,6 +141,7 @@ if __name__ == '__main__':
     graph.add_edge('Tel Aviv', 'Paris')
 
     graph.add_edge('Hong Kong', 'Tel Aviv')
+    graph.add_edge('Hong Kong', 'London')
 
     graph.add_edge('Paris', 'Amsterdam')
     graph.add_edge('Paris', 'London')
@@ -157,4 +159,6 @@ if __name__ == '__main__':
 
     print(f"Path from Brussels to Amsterdam: {graph.dfs_with_paths('Tokyo', 'London')}")
     # print(f"Path from Tokyo to Brussels: {graph.dfs_with_depth('Tokyo', 'Brussels')}")
+
+
 

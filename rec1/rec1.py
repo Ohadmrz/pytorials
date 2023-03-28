@@ -17,7 +17,8 @@ def print_triangles(n):
         return
     elif n == 0:
         return
-    print(n * '*')
+
+    # print(n * '*')
     print_triangles(n - 2)
     print(n * '*')
 
